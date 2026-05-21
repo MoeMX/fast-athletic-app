@@ -13,6 +13,41 @@
       "initials": "KF",
       "section": "coach",
       "order": 1
+    },
+    {
+      "name": " Coach Kevin \"Squeaky\" Wright  ",
+      "role": "Assistant Coach",
+      "initials": "KW",
+      "section": "coach",
+      "order": 2
+    },
+    {
+      "name": " Coach Marcos Torres",
+      "role": "Assistant Coach",
+      "initials": "MT",
+      "section": "coach",
+      "order": 3
+    },
+    {
+      "name": "Coach Aja Poole",
+      "role": "Assistant Coach",
+      "initials": "AP",
+      "section": "coach",
+      "order": 4
+    },
+    {
+      "name": "Coach George Hicks",
+      "role": "Strength & Conditioning ",
+      "initials": "GH",
+      "section": "coach",
+      "order": 5
+    },
+    {
+      "name": "Coach Shunita Arnold",
+      "role": "Assistant Coach",
+      "initials": "SA",
+      "section": "coach",
+      "order": 6
     }
   ],
   "schedule": [
