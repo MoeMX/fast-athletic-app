@@ -1,7 +1,13 @@
 [build]
   publish = "."
+  command = ""
 
 [[redirects]]
   from = "/admin"
   to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
