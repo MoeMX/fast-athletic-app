@@ -268,16 +268,16 @@ html,body{ height:100%; background:var(--black); color:var(--white); font-family
   </div>
   <div class="people-sec">
     <h3>Coaching Staff</h3>
-    <div class="person"><div class="avatar">KF</div><div><div class="p-name">Coach Kendrick Farr</div><div class="p-role">Athletic Director / Head Coach</div></div></div>
+    <div id="cms-coaches"><div class="person"><div class="avatar">KF</div><div><div class="p-name">Coach Kendrick Farr</div><div class="p-role">Athletic Director / Head Coach</div></div></div>
     <div class="person"><div class="avatar">MT</div><div><div class="p-name">Coach Marcos Torres</div><div class="p-role">Assistant &amp; South Coach</div></div></div>
     <div class="person"><div class="avatar">KW</div><div><div class="p-name">Coach Kevin "Squeaky" Wright</div><div class="p-role">Assistant Coach</div></div></div>
-    <div class="person"><div class="avatar">AP</div><div><div class="p-name">Coach Aja Poole</div><div class="p-role">Assistant Coach</div></div></div>
+    <div class="person"><div class="avatar">AP</div><div><div class="p-name">Coach Aja Poole</div><div class="p-role">Assistant Coach</div></div></div></div>
     <h3>Executive Board</h3>
-    <div class="person"><div class="avatar">JM</div><div><div class="p-name">Jaranimo Marks</div><div class="p-role">President</div></div></div>
+    <div id="cms-board"><div class="person"><div class="avatar">JM</div><div><div class="p-name">Jaranimo Marks</div><div class="p-role">President</div></div></div>
     <div class="person"><div class="avatar">MG</div><div><div class="p-name">Melissa Gray</div><div class="p-role">Vice President</div></div></div>
     <div class="person"><div class="avatar">JM</div><div><div class="p-name">Jennifer Marks</div><div class="p-role">Secretary</div></div></div>
     <div class="person"><div class="avatar">DT</div><div><div class="p-name">Dezerene Tatum</div><div class="p-role">Treasurer</div></div></div>
-    <div class="person"><div class="avatar">AW</div><div><div class="p-name">Aeriel Wright</div><div class="p-role">Operations Director</div></div></div>
+    <div class="person"><div class="avatar">AW</div><div><div class="p-name">Aeriel Wright</div><div class="p-role">Operations Director</div></div></div></div>
   </div>
 </div>
 
@@ -307,7 +307,7 @@ html,body{ height:100%; background:var(--black); color:var(--white); font-family
     </a>
   </div>
   <div class="section-hdr" style="padding-top:24px;"><h2>Community &amp; Team</h2></div>
-  <div class="media-list">
+  <div class="media-list" id="cms-videos">
     <a class="media-card" href="https://www.fast-athletics.com/fastmedia" target="_blank">
       <div class="vid-thumb" style="background-image:url('https://static.wixstatic.com/media/91780e_283b961972d64fdaae01ed6794726ecff002.jpg/v1/fill/w_455,h_256,enc_auto/file.jpeg');"><div class="play-btn">▶</div><div class="vid-dur">2:20</div></div>
       <div class="media-body"><div class="media-title">Mother's Day Video</div><div class="media-sub">Community Highlight</div></div>
@@ -526,5 +526,132 @@ window.addEventListener('load', () => {
   }, 1400);
 });
 </script>
+
+<script>
+// ══════════════════════════════════════════
+//  FAST Athletics CMS Runtime
+//  Reads saved content from localStorage and
+//  updates the app UI on every page load.
+// ══════════════════════════════════════════
+
+function cmsApply() {
+  const data = JSON.parse(localStorage.getItem('fast_cms') || '{}');
+
+  // ── Settings ──
+  if (data.settings) {
+    const s = data.settings;
+    if (s.next_meet_name) document.getElementById('cms-next-meet-name').textContent = s.next_meet_name;
+    if (s.next_meet_date || s.next_meet_location) {
+      document.getElementById('cms-next-meet-info').innerHTML =
+        (s.next_meet_date || '') + ' &nbsp;·&nbsp; <span class="gold">' + (s.next_meet_location || '') + '</span>';
+    }
+    if (s.join_notice) {
+      const jn = document.getElementById('cms-join-notice');
+      if (jn) jn.textContent = s.join_notice;
+    }
+    if (s.order_status) {
+      const os = document.getElementById('cms-order-status');
+      if (os) os.textContent = s.order_status;
+    }
+  }
+
+  // ── Schedule ──
+  if (data.schedule && data.schedule.length > 0) {
+    const container = document.getElementById('cms-schedule');
+    if (container) {
+      container.innerHTML = data.schedule.map(m => {
+        let badge = '';
+        if (m.status === 'results') {
+          badge = `<a class="badge badge-res" href="${m.results_link || '#'}" target="_blank">View Results</a>`;
+        } else if (m.status === 'major') {
+          badge = `<span class="badge badge-maj">${m.badge_label || 'Major'}</span>`;
+        } else {
+          badge = `<span class="badge badge-up">Upcoming</span>`;
+        }
+        return `<div class="meet-item">
+          <div class="meet-date-col"><div class="md">${m.date}</div><div class="my">${m.year || '2026'}</div></div>
+          <div class="meet-body">
+            <div class="meet-name">${m.title}</div>
+            <div class="meet-loc">${m.location}</div>
+            ${badge}
+          </div>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  // ── Events ──
+  if (data.events && data.events.length > 0) {
+    const container = document.getElementById('cms-events-list');
+    if (container) {
+      container.innerHTML = data.events.map(e => `
+        <div style="padding:0 20px 12px;">
+          <div class="event-card">
+            <div class="event-date-col">
+              <div class="event-month">${e.month}</div>
+              <div class="event-day">${e.day}</div>
+            </div>
+            <div class="event-body">
+              <div class="event-name">${e.title}</div>
+              ${e.location ? `<div class="event-detail">📍 ${e.location}</div>` : ''}
+              ${e.time ? `<div class="event-detail">🕐 ${e.time}</div>` : ''}
+              ${e.description ? `<div class="event-desc">${e.description}</div>` : ''}
+              ${e.tag ? `<div class="event-tag">${e.tag}</div>` : ''}
+            </div>
+          </div>
+        </div>`).join('');
+    }
+  }
+
+  // ── Coaches ──
+  if (data.coaches && data.coaches.length > 0) {
+    const coachSec = document.getElementById('cms-coaches');
+    const boardSec = document.getElementById('cms-board');
+    if (coachSec) {
+      const coaches = data.coaches.filter(c => c.section === 'coach');
+      if (coaches.length > 0) coachSec.innerHTML = coaches.map(c => `
+        <div class="person"><div class="avatar">${c.initials}</div>
+        <div><div class="p-name">${c.name}</div><div class="p-role">${c.role}</div></div></div>`).join('');
+    }
+    if (boardSec) {
+      const board = data.coaches.filter(c => c.section === 'board');
+      if (board.length > 0) boardSec.innerHTML = board.map(c => `
+        <div class="person"><div class="avatar">${c.initials}</div>
+        <div><div class="p-name">${c.name}</div><div class="p-role">${c.role}</div></div></div>`).join('');
+    }
+  }
+
+  // ── Media ──
+  if (data.media && data.media.length > 0) {
+    const galleries = data.media.filter(m => m.type === 'gallery');
+    const videos = data.media.filter(m => m.type === 'video');
+    const gc = document.getElementById('cms-galleries');
+    const vc = document.getElementById('cms-videos');
+    if (gc && galleries.length > 0) {
+      gc.innerHTML = galleries.map(m => `
+        <a class="media-card" href="${m.link}" target="_blank">
+          <div class="gallery-thumb">📸</div>
+          <div class="media-body"><div class="media-title">${m.title}</div><div class="media-sub">${m.subtitle}</div></div>
+          <div class="media-arrow">View Gallery →</div>
+        </a>`).join('');
+    }
+    if (vc && videos.length > 0) {
+      vc.innerHTML = videos.map(m => `
+        <a class="media-card" href="${m.link}" target="_blank">
+          <div class="vid-thumb" style="${m.thumbnail ? 'background-image:url(' + m.thumbnail + ');' : 'background:#111;'}">
+            <div class="play-btn">▶</div>
+            ${m.duration ? `<div class="vid-dur">${m.duration}</div>` : ''}
+          </div>
+          <div class="media-body"><div class="media-title">${m.title}</div><div class="media-sub">${m.subtitle}</div></div>
+          <div class="media-arrow">Watch →</div>
+        </a>`).join('');
+    }
+  }
+}
+
+// Run on load
+window.addEventListener('DOMContentLoaded', cmsApply);
+</script>
+
 </body>
 </html>

@@ -1,0 +1,88 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+
+  - name: "settings"
+    label: "⚙️ General Settings"
+    files:
+      - label: "Site Settings"
+        name: "settings"
+        file: "_data/settings.json"
+        fields:
+          - { label: "Next Meet Name", name: "next_meet_name", widget: "string" }
+          - { label: "Next Meet Date", name: "next_meet_date", widget: "string", hint: "e.g. May 23, 2026" }
+          - { label: "Next Meet Location", name: "next_meet_location", widget: "string" }
+          - { label: "Join Notice", name: "join_notice", widget: "string", hint: "e.g. Registration is open / closed for 2026 season" }
+          - { label: "Uniform Order Status", name: "order_status", widget: "string", hint: "e.g. Orders are currently closed for the season." }
+
+  - name: "coaches"
+    label: "👟 Coaches"
+    folder: "_data/coaches"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{name}} — {{role}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string", hint: "e.g. Coach Kendrick Farr" }
+      - { label: "Role / Title", name: "role", widget: "string", hint: "e.g. Athletic Director / Head Coach" }
+      - { label: "Initials", name: "initials", widget: "string", hint: "2 letters shown in avatar, e.g. KF" }
+      - { label: "Section", name: "section", widget: "select", options: [
+          { label: "Coaching Staff", value: "coach" },
+          { label: "Executive Board", value: "board" }
+        ]}
+      - { label: "Display Order", name: "order", widget: "number", default: 1, hint: "Lower numbers appear first" }
+
+  - name: "events"
+    label: "🎉 Events"
+    folder: "_data/events"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{month}} {{day}} — {{title}}"
+    fields:
+      - { label: "Event Name", name: "title", widget: "string", hint: "e.g. Athletic Banquet" }
+      - { label: "Month", name: "month", widget: "string", hint: "3-letter abbreviation, e.g. AUG" }
+      - { label: "Day", name: "day", widget: "string", hint: "Day number, e.g. 15 — use TBD if not confirmed" }
+      - { label: "Location", name: "location", widget: "string", hint: "Venue name and/or address" }
+      - { label: "Time", name: "time", widget: "string", hint: "e.g. 6:00 PM or TBD" }
+      - { label: "Description", name: "description", widget: "text", hint: "Short description of the event" }
+      - { label: "Tag / Label", name: "tag", widget: "string", required: false, hint: "Optional badge, e.g. Free Admission, RSVP Required" }
+
+  - name: "schedule"
+    label: "📅 Schedule"
+    folder: "_data/schedule"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{date}} — {{title}}"
+    fields:
+      - { label: "Meet Name", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "string", hint: "e.g. 5/23/26" }
+      - { label: "Year Label", name: "year", widget: "string", default: "2026" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Status", name: "status", widget: "select", options: [
+          { label: "Upcoming", value: "upcoming" },
+          { label: "Results Available", value: "results" },
+          { label: "Major (AAU/Regional/Nationals)", value: "major" }
+        ]}
+      - { label: "Badge Label", name: "badge_label", widget: "string", required: false, hint: "e.g. AAU, Regional, 🏆 Nationals" }
+      - { label: "Results Link", name: "results_link", widget: "string", required: false, hint: "Paste athletic.net results URL" }
+
+  - name: "media"
+    label: "📸 FAST Media"
+    folder: "_data/media"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{type}} — {{title}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Type", name: "type", widget: "select", options: [
+          { label: "Photo Gallery", value: "gallery" },
+          { label: "Video", value: "video" }
+        ]}
+      - { label: "Date / Description", name: "subtitle", widget: "string", hint: "e.g. May 2, 2026 · Little Rock, AR" }
+      - { label: "Link URL", name: "link", widget: "string" }
+      - { label: "Video Thumbnail URL", name: "thumbnail", widget: "string", required: false }
+      - { label: "Video Duration", name: "duration", widget: "string", required: false, hint: "e.g. 2:20" }
