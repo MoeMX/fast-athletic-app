@@ -238,7 +238,7 @@ html,body{ height:100%; background:var(--black); color:var(--white); font-family
   <div class="stats-row">
     <div class="stat-box" onclick="showPage('about')"><div class="stat-val">5–18</div><div class="stat-lbl">Ages</div></div>
     <div class="stat-box" onclick="showPage('schedule')"><div class="stat-val">8</div><div class="stat-lbl">2026 Meets</div></div>
-    <div class="stat-box" onclick="showPage('about')"><div class="stat-val">4</div><div class="stat-lbl">Coaches</div></div>
+    <div class="stat-box" onclick="showPage('about')"><div class="stat-val" id="cms-coach-count">4</div><div class="stat-lbl">Coaches</div></div>
   </div>
   <div class="section-hdr"><h2>Next Meet</h2><a onclick="showPage('schedule')">Full Schedule →</a></div>
   <div class="next-meet" onclick="showPage('schedule')">
@@ -768,6 +768,7 @@ window.addEventListener('fa-data-loaded', function(e) {
 
 
   // ── COACHES & BOARD ──
+  var _coachTotal=(data.coaches||[]).filter(function(c){return c.section==='coach'||(c.role&&c.role.toLowerCase().indexOf('coach')>=0);}).length;var _cntEl=document.getElementById('cms-coach-count');if(_cntEl)_cntEl.textContent=_coachTotal;
   var coaches = (data.coaches || []).slice().sort(function(a,b){ return (a.order||99)-(b.order||99); });
   if (coaches.length) {
     var allPersons = Array.from(document.querySelectorAll('.person'));
