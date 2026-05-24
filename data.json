@@ -62,6 +62,27 @@
       "initials": "MG",
       "section": "board",
       "order": 2
+    },
+    {
+      "name": "Jennifer Marks",
+      "role": "Secretary",
+      "initials": "JM",
+      "section": "board",
+      "order": 3
+    },
+    {
+      "name": "Dezerene Tatum",
+      "role": "Treasurer",
+      "initials": "DT",
+      "section": "board",
+      "order": 4
+    },
+    {
+      "name": "Aeriel Wright",
+      "role": "Operations DIrector",
+      "initials": "AW",
+      "section": "board",
+      "order": 5
     }
   ],
   "schedule": [
