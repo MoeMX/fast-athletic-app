@@ -246,12 +246,12 @@ html,body{ height:100%; background:var(--black); color:var(--white); font-family
     <div class="nmn" id="cms-next-meet-name">Port City S-P-E-E-D Relays</div>
     <div class="nmi" id="cms-next-meet-info">May 23, 2026 · <span class="gold">Jacksonville, AR</span></div>
   </div>
-  <div cl  <div class="next-meet" onclick="showPage('events')" id="cms-upcoming-event-card">
+  <div class="next-meet" onclick="showPage('events')" id="cms-upcoming-event-card">
     <div class="nml">🎉 Upcoming Event</div>
     <div class="nmn" id="cms-next-event-name">Athletic Banquet</div>
     <div class="nmi" id="cms-next-event-info">AUG TBD</div>
   </div>
-  ass="section-hdr"><h2>Explore</h2></div>
+  <div class="section-hdr"><h2>Explore</h2></div>
   <div class="card-row">
     <div class="info-card" onclick="showPage('join')"><div class="card-icon">⚡</div><div class="card-title">Join FAST</div><div class="card-desc">Register your athlete today</div></div>
     <div class="info-card" onclick="showPage('events')"><div class="card-icon">🎉</div><div class="card-title">Events</div><div class="card-desc">Banquets &amp; team events</div></div>
@@ -674,7 +674,6 @@ window.addEventListener('fa-data-loaded', function(e) {
   var data = e.detail;
   var s = data.settings || {};
 
-  // ── Helpers ──
   function esc(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
@@ -698,41 +697,33 @@ window.addEventListener('fa-data-loaded', function(e) {
   }
   var today = new Date(); today.setHours(0,0,0,0);
 
-  // ── NEXT MEET (auto-pulled from schedule) ──
-  var schedule = (data.schedule || []);
+  // ── NEXT MEET: auto-pull from schedule ──
+  var schedule = data.schedule || [];
   var nmName = document.getElementById('cms-next-meet-name');
   var nmInfo  = document.getElementById('cms-next-meet-info');
   var nextMeet = null;
-  // Prefer first meet with a future/today date; fallback to first without results
   for (var i = 0; i < schedule.length; i++) {
     var sd = parseSchedDate(schedule[i].date);
     if (sd && sd >= today) { nextMeet = schedule[i]; break; }
   }
-  if (!nextMeet) {
-    for (var i = 0; i < schedule.length; i++) {
-      if (!schedule[i].results_link) { nextMeet = schedule[i]; break; }
-    }
+  if (!nextMeet) for (var i = 0; i < schedule.length; i++) {
+    if (!schedule[i].results_link) { nextMeet = schedule[i]; break; }
   }
   if (nextMeet) {
     if (nmName) nmName.textContent = nextMeet.title || '';
     if (nmInfo) {
-      var datePart = nextMeet.date || '';
-      var locPart  = nextMeet.location || '';
-      nmInfo.innerHTML = esc(datePart) + (datePart && locPart ? ' &middot; ' : '') +
-        (locPart ? '<span class="gold">' + esc(locPart) + '</span>' : '');
+      var dp = nextMeet.date || '', lp = nextMeet.location || '';
+      nmInfo.innerHTML = esc(dp) + (dp && lp ? ' &middot; ' : '') + (lp ? '<span class="gold">' + esc(lp) + '</span>' : '');
     }
   } else if (s.next_meet_name) {
-    // Fallback to manual settings if no schedule items
     if (nmName) nmName.textContent = s.next_meet_name;
     if (nmInfo) {
-      var datePart = s.next_meet_date || '';
-      var locPart  = s.next_meet_location || '';
-      nmInfo.innerHTML = esc(datePart) + (datePart && locPart ? ' &middot; ' : '') +
-        (locPart ? '<span class="gold">' + esc(locPart) + '</span>' : '');
+      var dp = s.next_meet_date || '', lp = s.next_meet_location || '';
+      nmInfo.innerHTML = esc(dp) + (dp && lp ? ' &middot; ' : '') + (lp ? '<span class="gold">' + esc(lp) + '</span>' : '');
     }
   }
 
-  // ── NEXT EVENT (auto-pulled from events) ──
+  // ── NEXT EVENT: auto-pull from events ──
   var events = data.events || [];
   var neNameEl = document.getElementById('cms-next-event-name');
   var neInfoEl = document.getElementById('cms-next-event-info');
@@ -742,7 +733,7 @@ window.addEventListener('fa-data-loaded', function(e) {
     var ed = parseEventDate(events[i].month, events[i].day);
     if (ed && ed >= today) { nextEvent = events[i]; break; }
   }
-  if (!nextEvent && events.length) nextEvent = events[0]; // fallback: show first
+  if (!nextEvent && events.length) nextEvent = events[0];
   if (nextEvent) {
     if (neNameEl) neNameEl.textContent = nextEvent.title || '';
     if (neInfoEl) {
@@ -753,15 +744,14 @@ window.addEventListener('fa-data-loaded', function(e) {
     }
     if (evCard) evCard.style.display = '';
   } else {
-    // Hide card if no events
     if (evCard) evCard.style.display = 'none';
   }
 
   // ── SETTINGS: join notice & order status ──
   var joinEl  = document.getElementById('cms-join-notice');
   var orderEl = document.getElementById('cms-order-status');
-  if (joinEl  && s.join_notice)   joinEl.textContent  = s.join_notice;
-  if (orderEl && s.order_status)  orderEl.textContent = s.order_status;
+  if (joinEl  && s.join_notice)  joinEl.textContent  = s.join_notice;
+  if (orderEl && s.order_status) orderEl.textContent = s.order_status;
 
   // ── COACHES & BOARD ──
   var coaches = (data.coaches || []).slice().sort(function(a,b){ return (a.order||99)-(b.order||99); });
@@ -781,13 +771,10 @@ window.addEventListener('fa-data-loaded', function(e) {
         return d;
       }
       var staff = coaches.filter(function(c){ return c.section !== 'board'; });
-      var board = coaches.filter(function(c){ return c.section === 'board'; });
+      var board  = coaches.filter(function(c){ return c.section === 'board'; });
       coachContainer.innerHTML = '';
       staff.forEach(function(c){ coachContainer.appendChild(makePersonCard(c)); });
-      if (boardContainer) {
-        boardContainer.innerHTML = '';
-        board.forEach(function(c){ boardContainer.appendChild(makePersonCard(c)); });
-      }
+      if (boardContainer) { boardContainer.innerHTML = ''; board.forEach(function(c){ boardContainer.appendChild(makePersonCard(c)); }); }
     }
   }
 
@@ -796,22 +783,19 @@ window.addEventListener('fa-data-loaded', function(e) {
   if (schedEl && schedule.length) {
     schedEl.innerHTML = '';
     schedule.forEach(function(m) {
-      var parts = (m.date || '').split('/');
-      var md = parts.length >= 2 ? parts[0] + '/' + parts[1] : (m.date || '');
-      var my = parts.length >= 3 ? '20' + parts[2] : '';
+      var parts = (m.date||'').split('/');
+      var md = parts.length >= 2 ? parts[0]+'/'+parts[1] : (m.date||'');
+      var my = parts.length >= 3 ? '20'+parts[2] : '';
       var badgeHtml = '';
       if (m.results_link) {
-        badgeHtml = '<a class="badge badge-res" href="' + esc(m.results_link) + '" target="_blank">' + esc(m.badge_label || 'View Results') + '</a>';
+        badgeHtml = '<a class="badge badge-res" href="'+esc(m.results_link)+'" target="_blank">'+esc(m.badge_label||'View Results')+'</a>';
       } else if (m.badge_label) {
-        var cls = (m.status === 'major') ? 'badge-maj' : 'badge-up';
-        badgeHtml = '<span class="badge ' + cls + '">' + esc(m.badge_label) + '</span>';
+        badgeHtml = '<span class="badge '+(m.status==='major'?'badge-maj':'badge-up')+'">'+esc(m.badge_label)+'</span>';
       }
-      var div = document.createElement('div');
-      div.className = 'meet-item';
-      div.innerHTML =
-        '<div class="meet-date-col"><div class="md">' + esc(md) + '</div><div class="my">' + esc(my) + '</div></div>' +
-        '<div class="meet-body"><div class="meet-name">' + esc(m.title||'') + '</div>' +
-        '<div class="meet-loc">' + esc(m.location||'') + '</div>' + badgeHtml + '</div>';
+      var div = document.createElement('div'); div.className = 'meet-item';
+      div.innerHTML = '<div class="meet-date-col"><div class="md">'+esc(md)+'</div><div class="my">'+esc(my)+'</div></div>' +
+        '<div class="meet-body"><div class="meet-name">'+esc(m.title||'')+'</div>' +
+        '<div class="meet-loc">'+esc(m.location||'')+'</div>'+badgeHtml+'</div>';
       schedEl.appendChild(div);
     });
   }
@@ -821,16 +805,15 @@ window.addEventListener('fa-data-loaded', function(e) {
   if (evEl && events.length) {
     evEl.innerHTML = '';
     events.forEach(function(ev) {
-      var tagHtml = ev.tag ? '<span class="badge badge-up">' + esc(ev.tag) + '</span>' : '';
+      var tagHtml = ev.tag ? '<span class="badge badge-up">'+esc(ev.tag)+'</span>' : '';
       var div = document.createElement('div'); div.className = 'event-card';
-      div.innerHTML =
-        '<div class="event-date-col"><div class="event-month">' + esc((ev.month||'').toUpperCase()) + '</div>' +
-        '<div class="event-day">' + esc(ev.day||'') + '</div></div>' +
-        '<div class="event-body"><div class="event-name">' + esc(ev.title||'') + '</div>' +
-        (ev.location    ? '<div class="event-detail">📍 ' + esc(ev.location) + '</div>' : '') +
-        (ev.time        ? '<div class="event-detail">🕐 ' + esc(ev.time) + '</div>' : '') +
-        (ev.description ? '<div class="event-desc">' + esc(ev.description) + '</div>' : '') +
-        tagHtml + '</div>';
+      div.innerHTML = '<div class="event-date-col"><div class="event-month">'+esc((ev.month||'').toUpperCase())+'</div>' +
+        '<div class="event-day">'+esc(ev.day||'')+'</div></div>' +
+        '<div class="event-body"><div class="event-name">'+esc(ev.title||'')+'</div>' +
+        (ev.location    ? '<div class="event-detail">📍 '+esc(ev.location)+'</div>' : '') +
+        (ev.time        ? '<div class="event-detail">🕐 '+esc(ev.time)+'</div>' : '') +
+        (ev.description ? '<div class="event-desc">'+esc(ev.description)+'</div>' : '') +
+        tagHtml+'</div>';
       evEl.appendChild(div);
     });
   }
@@ -840,27 +823,21 @@ window.addEventListener('fa-data-loaded', function(e) {
   if (media.length) {
     var galEl = document.getElementById('cms-galleries');
     var vidEl = document.getElementById('cms-videos');
-    var galleries = media.filter(function(m){ return m.type === 'gallery'; });
-    var videos    = media.filter(function(m){ return m.type === 'video'; });
+    var galleries = media.filter(function(m){ return m.type==='gallery'; });
+    var videos    = media.filter(function(m){ return m.type==='video'; });
     if (galEl && galleries.length) {
       galEl.innerHTML = '';
       galleries.forEach(function(g) {
-        var a = document.createElement('a');
-        a.className = 'media-card'; a.href = g.link||'#'; a.target = '_blank';
-        a.innerHTML = '<div class="gallery-thumb">📸</div><div class="media-body"><div class="media-title">' +
-          esc(g.title||'') + '</div><div class="media-sub">' + esc(g.subtitle||'') + '</div></div>' +
-          '<div class="media-arrow">View Gallery →</div>';
+        var a = document.createElement('a'); a.className='media-card'; a.href=g.link||'#'; a.target='_blank';
+        a.innerHTML = '<div class="gallery-thumb">📸</div><div class="media-body"><div class="media-title">'+esc(g.title||'')+'</div><div class="media-sub">'+esc(g.subtitle||'')+'</div></div><div class="media-arrow">View Gallery →</div>';
         galEl.appendChild(a);
       });
     }
     if (vidEl && videos.length) {
       vidEl.innerHTML = '';
       videos.forEach(function(v) {
-        var a = document.createElement('a');
-        a.className = 'media-card'; a.href = v.link||'#'; a.target = '_blank';
-        a.innerHTML = '<div class="gallery-thumb">🎬</div><div class="media-body"><div class="media-title">' +
-          esc(v.title||'') + '</div><div class="media-sub">' + esc(v.subtitle||'') + '</div></div>' +
-          '<div class="media-arrow">Watch →</div>';
+        var a = document.createElement('a'); a.className='media-card'; a.href=v.link||'#'; a.target='_blank';
+        a.innerHTML = '<div class="gallery-thumb">🎬</div><div class="media-body"><div class="media-title">'+esc(v.title||'')+'</div><div class="media-sub">'+esc(v.subtitle||'')+'</div></div><div class="media-arrow">Watch →</div>';
         vidEl.appendChild(a);
       });
     }
