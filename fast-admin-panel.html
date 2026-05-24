@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FAST Athletics — Admin</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; marginh: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f0f; color: #f0f0f0; min-height: 100vh; }
 
     #login-screen {
@@ -183,12 +183,12 @@
     <hr style="border-color:#2a2a2a;margin-bottom:24px"/>
     <p class="section-title">GitHub Auto-Save Setup</p>
     <p style="font-size:0.82rem;color:#888;margin-bottom:14px;line-height:1.6">
-      When you click <strong>Save &amp; Publish</strong>, this admin panel writes <code style="color:#f0c040">data.json</code> to your GitHub repo. Netlify sees the change and automatically rebuilds your site in about 1 minute — no manual steps needed.
+      When you click <strong>Save &amp; Publish</strong>, this admin panel writes <code style="color:#f0c040">data.json</code> to your GitHub repo. Cloudflare Pages detects the change and automatically rebuilds your site in about 1 minute — no manual steps needed.
     </p>
     <div class="field">
       <label>GitHub Personal Access Token &nbsp;<a href="https://github.com/settings/tokens/new?scopes=repo&description=FAST+Athletics+Admin" target="_blank" style="color:#f0c040;font-size:0.75rem">Generate one here ↗</a></label>
       <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
-      <p class="hint">Select <strong>repo</strong> scope when generating. Stored in your browser only — never sent anywhere except GitHub.</p>
+      <p class="hint">How to get your token: click "Generate one here" above → name it "FAST Admin" → check the repo box → scroll down → click "Generate token" → copy &amp; paste it here. Never leave this page before copying — tokens only show once. Stored in your browser only.</p>
     </div>
     <div class="row cols-2">
       <div class="field"><label>GitHub Username</label><input type="text" id="gh-owner" value="MoeMX" /></div>
@@ -472,7 +472,7 @@ async function saveAll(){
     if(sha)body.sha=sha;
     const res=await fetch(apiBase,{method:'PUT',headers:{Authorization:`token ${gh.token}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
     if(res.ok){
-      showToast('✅ Published! Netlify is rebuilding (~1 min).','success');
+      showToast('✅ Published! Cloudflare Pages is rebuilding (~1 min).','success');
       const st=document.getElementById('save-status');st.textContent='Saved & published.';st.style.color='#2ecc71';
     }else{
       const err=await res.json();showToast('GitHub error: '+(err.message||'Unknown'),'error');
