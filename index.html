@@ -405,7 +405,7 @@ html,body{ height:100%; background:var(--black); color:var(--white); font-family
   <div class="contact-links">
     <a class="contact-link" href="mailto:Fastathletics26@gmail.com"><div class="ci-icon">✉️</div><div><div class="ci-lbl">Email</div><div class="ci-val">Fastathletics26@gmail.com</div></div></a>
     <a class="contact-link" href="https://www.facebook.com/61588399529852/" target="_blank"><div class="ci-icon">📘</div><div><div class="ci-lbl">Facebook</div><div class="ci-val">FAST Athletics</div></div></a>
-    <a class="contact-link" href="https://www.instagram.com/" target="_blank"><div class="ci-icon">📸</div><div><div class="ci-lbl">Instagram</div><div class="ci-val">Follow Us</div></div></a>
+    <a class="contact-link" id="cms-ig-link" href="https://www.instagram.com/" target="_blank" style="display:none"><div class="ci-icon">📸</div><div><div class="ci-lbl">Instagram</div><div class="ci-val">Follow Us</div></div></a>
   </div>
   <div class="contact-form">
     <h3>Send a Message</h3>
@@ -764,6 +764,14 @@ window.addEventListener('fa-data-loaded', function(e) {
     } else {
       payBtn.style.display = 'none';
     }
+  }
+
+  // Instagram link
+  var igLink = document.getElementById('cms-ig-link');
+  if (igLink) {
+    var igUrl = (s.instagram || '').trim();
+    if (igUrl) { igLink.href = igUrl; igLink.style.display = ''; }
+    else { igLink.style.display = 'none'; }
   }
 
 
