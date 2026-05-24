@@ -66,6 +66,14 @@
   ],
   "schedule": [
     {
+      "title": "Christian Competition Track Club",
+      "date": "5/2/26",
+      "location": "Little Rock, AR",
+      "status": "results",
+      "badge_label": "",
+      "results_link": "https://www.athletic.net/TrackAndField/meet/652011/results"
+    },
+    {
       "title": "11th Annual Youth Track and Field of Memphis Invitational",
       "date": "5/30/26",
       "location": "Memphis, TN",
