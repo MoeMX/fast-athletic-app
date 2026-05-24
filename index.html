@@ -331,7 +331,7 @@ html,body{ height:100%; background:var(--black); color:var(--white); font-family
   <div class="page-hero">
     <div class="label">Track Meets &amp; Competitions</div>
     <h2>2026 <span class="gold">Schedule</span></h2>
-    <a href="https://square.link/u/hV6hUxli" target="_blank" class="btn btn-gold" style="margin-top:16px;">💳 Pay Now</a>
+    <a id="cms-pay-btn" href="https://square.link/u/hV6hUxli" target="_blank" class="btn btn-gold" style="margin-top:16px;">💳 Pay Now</a>
   </div>
   <div class="meet-list" id="cms-schedule" style="padding-top:8px;">
     <div class="meet-item"><div class="meet-date-col"><div class="md">5/2</div><div class="my">2026</div></div><div class="meet-body"><div class="meet-name">Christian Competition Track Club</div><div class="meet-loc">9417 Geyer Springs Rd, Little Rock, AR</div><a class="badge badge-res" href="https://www.athletic.net/TrackAndField/meet/652011/results" target="_blank">View Results</a></div></div>
@@ -752,6 +752,20 @@ window.addEventListener('fa-data-loaded', function(e) {
   var orderEl = document.getElementById('cms-order-status');
   if (joinEl  && s.join_notice)  joinEl.textContent  = s.join_notice;
   if (orderEl && s.order_status) orderEl.textContent = s.order_status;
+  // ── PAY NOW BUTTON ──
+  var payBtn = document.getElementById('cms-pay-btn');
+  if (payBtn) {
+    var payLink  = s.pay_link  || '';
+    var payLabel = s.pay_label || 'Pay Now';
+    if (payLink) {
+      payBtn.href = payLink;
+      payBtn.textContent = payLabel;
+      payBtn.style.display = '';
+    } else {
+      payBtn.style.display = 'none';
+    }
+  }
+
 
   // ── COACHES & BOARD ──
   var coaches = (data.coaches || []).slice().sort(function(a,b){ return (a.order||99)-(b.order||99); });
