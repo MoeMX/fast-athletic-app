@@ -162,7 +162,8 @@
       "subtitle": "May 2, 2026 Little Rock, AR",
       "link": "https://www.fast-athletics.com/5-2-26-cctc-meet",
       "thumbnail": "",
-      "duration": ""
+      "duration": "",
+      "category": "meets"
     },
     {
       "title": "5/9/26 Cunningham Racing Meet",
@@ -170,7 +171,8 @@
       "subtitle": "May 9, 2026 Jacksonville, AR",
       "link": "https://www.fast-athletics.com/5-9-26cunningham-racing-meet",
       "thumbnail": "",
-      "duration": ""
+      "duration": "",
+      "category": "meets"
     },
     {
       "title": "5/16/26 Twin City Breeze Meet",
@@ -178,7 +180,8 @@
       "subtitle": "May 16, 2026 Texarkana, AR",
       "link": "https://www.fast-athletics.com/5-16-26twin-city-breeze-meet",
       "thumbnail": "",
-      "duration": ""
+      "duration": "",
+      "category": "meets"
     },
     {
       "title": "5/23/26 Port City Meet",
@@ -186,7 +189,8 @@
       "subtitle": "May 23, 2026 Jacksonville, AR",
       "link": "https://www.fast-athletics.com/5-23-26portcitymeet",
       "thumbnail": "",
-      "duration": ""
+      "duration": "",
+      "category": "meets"
     }
   ]
 }
