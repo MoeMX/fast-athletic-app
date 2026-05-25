@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FAST Athletics â Admin</title>
+  <title>FAST Athletics — Admin</title>
   <style>
     * { box-sizing: border-box; marginh: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f0f; color: #f0f0f0; min-height: 100vh; }
@@ -96,8 +96,8 @@
     }
   
     .media-section { margin-bottom: 8px; }
-    .media-section-header { display:flex; align-items:center; justify-content:space-between; padding:8px 0 6px; border-bottom:2px solid var(--border,#e0e0e0); margin-bottom:12px; }
-    .media-section-header span { font-size:1rem; font-weight:600; color:var(--text,#333); }
+    .media-section-header { display:flex; align-items:center; justify-content:space-between; padding:8px 0 6px; border-bottom:2px solid #444; margin-bottom:12px; }
+    .media-section-header span { font-size:1rem; font-weight:700; color:#f0c040; letter-spacing:.02em; }
   </style>
 </head>
 <body>
@@ -112,7 +112,7 @@
     <input type="password" id="pw-input" placeholder="Enter password" />
     <p id="login-error">Incorrect password. Try again.</p>
     <button class="btn btn-primary" style="width:100%" onclick="doLogin()">Sign In</button>
-    <p class="hint">Default password: <strong>fast2026</strong> â change it in the Admin tab after first login.</p>
+    <p class="hint">Default password: <strong>fast2026</strong> — change it in the Admin tab after first login.</p>
   </div>
 </div>
 
@@ -129,12 +129,12 @@
   </div>
 
   <div class="nav">
-    <button class="nav-tab active" data-tab="settings"  onclick="switchTab(this,'settings')">âï¸ Settings</button>
-    <button class="nav-tab"        data-tab="coaches"   onclick="switchTab(this,'coaches')">ð Coaches</button>
-    <button class="nav-tab"        data-tab="schedule"  onclick="switchTab(this,'schedule')">ð Schedule</button>
-    <button class="nav-tab"        data-tab="events"    onclick="switchTab(this,'events')">ð Events</button>
-    <button class="nav-tab"        data-tab="media"     onclick="switchTab(this,'media')">ð¸ Media</button>
-    <button class="nav-tab"        data-tab="admin-settings" onclick="switchTab(this,'admin-settings')">ð Admin</button>
+    <button class="nav-tab active" data-tab="settings"  onclick="switchTab(this,'settings')">⚙️ Settings</button>
+    <button class="nav-tab"        data-tab="coaches"   onclick="switchTab(this,'coaches')">👟 Coaches</button>
+    <button class="nav-tab"        data-tab="schedule"  onclick="switchTab(this,'schedule')">📅 Schedule</button>
+    <button class="nav-tab"        data-tab="events"    onclick="switchTab(this,'events')">🎉 Events</button>
+    <button class="nav-tab"        data-tab="media"     onclick="switchTab(this,'media')">📸 Media</button>
+    <button class="nav-tab"        data-tab="admin-settings" onclick="switchTab(this,'admin-settings')">🔑 Admin</button>
   </div>
 
   <!-- SETTINGS -->
@@ -148,7 +148,7 @@
     <div class="field"><label>Join / Registration Notice</label><input type="text" id="s-join_notice" oninput="markUnsaved()" /></div>
     <div class="field"><label>Uniform Order Status</label><input type="text" id="s-order_status" oninput="markUnsaved()" /></div>
   <hr style="border-color:#2a2a2a;margin:18px 0"/>
-  <p class="section-title" style="font-size:0.95rem;margin-bottom:12px">ð³ Pay Now Button</p>
+  <p class="section-title" style="font-size:0.95rem;margin-bottom:12px">💳 Pay Now Button</p>
   <div class="field">
     <label>Payment Link URL</label>
     <input type="text" id="s-pay_link" placeholder="https://square.link/u/..." oninput="markUnsaved()" />
@@ -159,7 +159,7 @@
     <input type="text" id="s-pay_label" placeholder="Pay Now" oninput="markUnsaved()" />
   </div>
   <hr style="border-color:#2a2a2a;margin:18px 0"/>
-  <p class="section-title" style="font-size:0.95rem;margin-bottom:12px">ð¸ Social Media</p>
+  <p class="section-title" style="font-size:0.95rem;margin-bottom:12px">📸 Social Media</p>
   <div class="field">
     <label>Instagram URL</label>
     <input type="text" id="s-instagram" placeholder="https://www.instagram.com/your_handle" oninput="markUnsaved()" />
@@ -190,17 +190,17 @@
 
   <!-- MEDIA -->
   <div class="pane" id="pane-media">
-    <p class="section-title">📸 Media</p>
+    <p class="section-title">Photos &amp; Videos</p>
   <div class="media-section">
     <div class="media-section-header">
-      <span>🏟️ Meets</span>
+      <span>Meets</span>
       <button class="add-card-btn" onclick="addMedia('meets')">+ Add Meet Media</button>
     </div>
     <div class="card-list" id="media-list-meets"></div>
   </div>
   <div class="media-section" style="margin-top:24px">
     <div class="media-section-header">
-      <span>👥 Community &amp; Team</span>
+      <span>Community &amp; Team</span>
       <button class="add-card-btn" onclick="addMedia('community')">+ Add Community Media</button>
     </div>
     <div class="card-list" id="media-list-community"></div>
@@ -217,12 +217,12 @@
     <hr style="border-color:#2a2a2a;margin-bottom:24px"/>
     <p class="section-title">GitHub Auto-Save Setup</p>
     <p style="font-size:0.82rem;color:#888;margin-bottom:14px;line-height:1.6">
-      When you click <strong>Save &amp; Publish</strong>, this admin panel writes <code style="color:#f0c040">data.json</code> to your GitHub repo. Cloudflare Pages detects the change and automatically rebuilds your site in about 1 minute â no manual steps needed.
+      When you click <strong>Save &amp; Publish</strong>, this admin panel writes <code style="color:#f0c040">data.json</code> to your GitHub repo. Cloudflare Pages detects the change and automatically rebuilds your site in about 1 minute — no manual steps needed.
     </p>
     <div class="field">
-      <label>GitHub Personal Access Token &nbsp;<a href="https://github.com/settings/tokens/new?scopes=repo&description=FAST+Athletics+Admin" target="_blank" style="color:#f0c040;font-size:0.75rem">Generate one here â</a></label>
+      <label>GitHub Personal Access Token &nbsp;<a href="https://github.com/settings/tokens/new?scopes=repo&description=FAST+Athletics+Admin" target="_blank" style="color:#f0c040;font-size:0.75rem">Generate one here ↗</a></label>
       <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
-      <p class="hint">How to get your token: click "Generate one here" above â name it "FAST Admin" â check the repo box â scroll down â click "Generate token" â copy &amp; paste it here. Never leave this page before copying â tokens only show once. Stored in your browser only.</p>
+      <p class="hint">How to get your token: click "Generate one here" above → name it "FAST Admin" → check the repo box → scroll down → click "Generate token" → copy &amp; paste it here. Never leave this page before copying — tokens only show once. Stored in your browser only.</p>
     </div>
     <div class="row cols-2">
       <div class="field"><label>GitHub Username</label><input type="text" id="gh-owner" value="MoeMX" /></div>
@@ -235,7 +235,7 @@
   <div style="height:64px"></div>
   <div id="save-bar">
     <span id="save-status">All changes saved.</span>
-    <button class="btn btn-primary" id="save-btn" onclick="saveAll()">ð¾ Save &amp; Publish</button>
+    <button class="btn btn-primary" id="save-btn" onclick="saveAll()">💾 Save &amp; Publish</button>
   </div>
 </div>
 
@@ -318,11 +318,11 @@ function renderCoaches() {
 }
 function coachCard(c,i) {
   const d=document.createElement('div'); d.className='card';
-  d.innerHTML=`<div class="card-header"><span>${esc(c.name)||'New Coach'} â ${esc(c.role)||''}</span>
+  d.innerHTML=`<div class="card-header"><span>${esc(c.name)||'New Coach'} — ${esc(c.role)||''}</span>
     <div class="card-actions">
-      <button class="btn-icon" onclick="move('coaches',${i},-1)">â</button>
-      <button class="btn-icon" onclick="move('coaches',${i},1)">â</button>
-      <button class="btn-icon" style="color:#e55" onclick="del('coaches',${i})">â</button>
+      <button class="btn-icon" onclick="move('coaches',${i},-1)">↑</button>
+      <button class="btn-icon" onclick="move('coaches',${i},1)">↓</button>
+      <button class="btn-icon" style="color:#e55" onclick="del('coaches',${i})">✕</button>
     </div></div>
     <div class="row cols-2">
       <div class="field"><label>Name</label><input type="text" value="${esc(c.name)}" oninput="data.coaches[${i}].name=this.value;markUnsaved()" /></div>
@@ -351,11 +351,11 @@ function renderSchedule() {
 }
 function schedCard(m,i) {
   const d=document.createElement('div'); d.className='card';
-  d.innerHTML=`<div class="card-header"><span>${esc(m.date)||'Date?'} â ${esc(m.title)||'Meet'}</span>
+  d.innerHTML=`<div class="card-header"><span>${esc(m.date)||'Date?'} — ${esc(m.title)||'Meet'}</span>
     <div class="card-actions">
-      <button class="btn-icon" onclick="move('schedule',${i},-1)">â</button>
-      <button class="btn-icon" onclick="move('schedule',${i},1)">â</button>
-      <button class="btn-icon" style="color:#e55" onclick="del('schedule',${i})">â</button>
+      <button class="btn-icon" onclick="move('schedule',${i},-1)">↑</button>
+      <button class="btn-icon" onclick="move('schedule',${i},1)">↓</button>
+      <button class="btn-icon" style="color:#e55" onclick="del('schedule',${i})">✕</button>
     </div></div>
     <div class="row cols-2">
       <div class="field"><label>Meet Name</label><input type="text" value="${esc(m.title)}" oninput="data.schedule[${i}].title=this.value;markUnsaved()" /></div>
@@ -388,11 +388,11 @@ function renderEvents() {
 }
 function evCard(ev,i) {
   const d=document.createElement('div'); d.className='card';
-  d.innerHTML=`<div class="card-header"><span>${esc(ev.month)||'MON'} ${esc(ev.day)||'?'} â ${esc(ev.title)||'Event'}</span>
+  d.innerHTML=`<div class="card-header"><span>${esc(ev.month)||'MON'} ${esc(ev.day)||'?'} — ${esc(ev.title)||'Event'}</span>
     <div class="card-actions">
-      <button class="btn-icon" onclick="move('events',${i},-1)">â</button>
-      <button class="btn-icon" onclick="move('events',${i},1)">â</button>
-      <button class="btn-icon" style="color:#e55" onclick="del('events',${i})">â</button>
+      <button class="btn-icon" onclick="move('events',${i},-1)">↑</button>
+      <button class="btn-icon" onclick="move('events',${i},1)">↓</button>
+      <button class="btn-icon" style="color:#e55" onclick="del('events',${i})">✕</button>
     </div></div>
     <div class="row cols-3">
       <div class="field"><label>Event Name</label><input type="text" value="${esc(ev.title)}" oninput="data.events[${i}].title=this.value;markUnsaved()" /></div>
@@ -425,11 +425,11 @@ function renderMedia() {
 }
 function mediaCard(m,i) {
   const d=document.createElement('div'); d.className='card';
-  d.innerHTML=`<div class="card-header"><span>${m.type==='video'?'ð¬':'ð¼ï¸'} ${esc(m.title)||'Media'}</span>
+  d.innerHTML=`<div class="card-header"><span>${m.type==='video'?'🎬':'🖼️'} ${esc(m.title)||'Media'}</span>
     <div class="card-actions">
-      <button class="btn-icon" onclick="move('media',${i},-1)">â</button>
-      <button class="btn-icon" onclick="move('media',${i},1)">â</button>
-      <button class="btn-icon" style="color:#e55" onclick="del('media',${i})">â</button>
+      <button class="btn-icon" onclick="move('media',${i},-1)">↑</button>
+      <button class="btn-icon" onclick="move('media',${i},1)">↓</button>
+      <button class="btn-icon" style="color:#e55" onclick="del('media',${i})">✕</button>
     </div></div>
     <div class="row cols-2">
       <div class="field"><label>Title</label><input type="text" value="${esc(m.title)}" oninput="data.media[${i}].title=this.value;markUnsaved()" /></div>
@@ -438,7 +438,7 @@ function mediaCard(m,i) {
         <option value="video"   ${m.type==='video'  ?'selected':''}>Video</option>
       </select></div>
     </div>
-    <div class="field"><label>Date / Subtitle</label><input type="text" value="${esc(m.subtitle)}" placeholder="e.g. May 2, 2026 Â· Little Rock, AR" oninput="data.media[${i}].subtitle=this.value;markUnsaved()" /></div>
+    <div class="field"><label>Date / Subtitle</label><input type="text" value="${esc(m.subtitle)}" placeholder="e.g. May 2, 2026 · Little Rock, AR" oninput="data.media[${i}].subtitle=this.value;markUnsaved()" /></div>
     <div class="field"><label>Link URL (Google Photos, YouTube, etc.)</label><input type="text" value="${esc(m.link)}" oninput="data.media[${i}].link=this.value;markUnsaved()" /></div>`;
   return d;
 }
@@ -471,7 +471,7 @@ function del(arr,idx){
 }
 function markUnsaved(){
   const el=document.getElementById('save-status');
-  el.textContent='Unsaved changesâ¦'; el.style.color='#f0c040';
+  el.textContent='Unsaved changes…'; el.style.color='#f0c040';
 }
 
 // GitHub
@@ -500,7 +500,7 @@ async function saveAll(){
   const gh=JSON.parse(localStorage.getItem('fa_gh')||'{}');
   if(!gh.token){showToast('Add a GitHub token in the Admin tab first.','error');return;}
   const btn=document.getElementById('save-btn');
-  btn.disabled=true; btn.textContent='Publishingâ¦';
+  btn.disabled=true; btn.textContent='Publishing…';
   try{
     const owner=gh.owner||'MoeMX',repo=gh.repo||'fast-athletics-app',branch=gh.branch||'main';
     const apiBase=`https://api.github.com/repos/${owner}/${repo}/contents/data.json`;
@@ -511,13 +511,13 @@ async function saveAll(){
     if(sha)body.sha=sha;
     const res=await fetch(apiBase,{method:'PUT',headers:{Authorization:`token ${gh.token}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)});
     if(res.ok){
-      showToast('â Published! Cloudflare Pages is rebuilding (~1 min).','success');
+      showToast('✅ Published! Cloudflare Pages is rebuilding (~1 min).','success');
       const st=document.getElementById('save-status');st.textContent='Saved & published.';st.style.color='#2ecc71';
     }else{
       const err=await res.json();showToast('GitHub error: '+(err.message||'Unknown'),'error');
     }
   }catch(e){showToast('Network error. Check your connection.','error');}
-  btn.disabled=false; btn.textContent='ð¾ Save & Publish';
+  btn.disabled=false; btn.textContent='💾 Save & Publish';
 }
 
 function showToast(msg,type=''){
