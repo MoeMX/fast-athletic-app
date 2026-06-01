@@ -155,7 +155,17 @@
       "results_link": ""
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "title": "1st Annual FAST Athletics Banquet",
+      "month": "AUG",
+      "day": "22",
+      "location": "Bishop Park - Bryant, AR",
+      "time": "1:30 PM",
+      "description": "Join us for the 1st Annual FAST Athletics Banquet as we celebrate our athletes, coaches, families, and supporters. This special evening will recognize hard work, dedication, growth, and achievements throughout the season while honoring the spirit and future of FAST Athletics.",
+      "tag": ""
+    }
+  ],
   "media": [
     {
       "title": "5/2/26 CCTC Track Meet",
