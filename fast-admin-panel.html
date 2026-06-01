@@ -406,11 +406,13 @@ function evCard(ev,i) {
     </div>
     <div class="field"><label>Description</label><textarea oninput="data.events[${i}].description=this.value;markUnsaved()">${esc(ev.description)}</textarea></div>
     <div class="field"><label>Tag / Badge (optional)</label><input type="text" value="${esc(ev.tag)}" placeholder="e.g. Free Admission" oninput="data.events[${i}].tag=this.value;markUnsaved()" /></div>`;
+    <div class="field"><label>Pay Link (optional)</label><input type="text" value="${esc(ev.pay_link||'')" placeholder="https://..." oninput="data.events[${i}].pay_link=this.value;markUnsaved()" /></div>
+    <div class="field"><label>Donation Link (optional)</label><input type="text" value="${esc(ev.donation_link||'')" placeholder="https://..." oninput="data.events[${i}].donation_link=this.value;markUnsaved()" /></div>
   return d;
 }
 function addEvent() {
   data.events=data.events||[];
-  data.events.push({title:'',month:'',day:'',location:'',time:'',description:'',tag:''});
+  data.events.push({title:'',month:'',day:'',location:'',time:'',description:'',tag:'',pay_link:'',donation_link:''});
   renderEvents(); markUnsaved();
 }
 
